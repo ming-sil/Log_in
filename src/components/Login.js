@@ -29,18 +29,6 @@ const LoginWrap = styled.div`
     margin-bottom: 15px;
     border-radius: 10px;
   }
-  button {
-    all: unset;
-    width: 100%;
-    height: 50px;
-    padding: 10px;
-    text-align: center;
-    background-color: indianred;
-    box-sizing: border-box;
-    color: white;
-    border-radius: 10px;
-    opacity: 0.5;
-  }
 `;
 
 const Title = styled.h3`
@@ -49,24 +37,101 @@ const Title = styled.h3`
   margin-bottom: 30px;
 `;
 
+const Button = styled.button`
+  all: unset;
+  width: 100%;
+  height: 50px;
+  padding: 10px;
+  text-align: center;
+  background-color: indianred;
+  box-sizing: border-box;
+  color: white;
+  border-radius: 10px;
+  opacity: ${(props) => props.opacity};
+  cursor: ${(props) => props.cursor};
+`;
+
+const ErrorMessage = styled.span`
+  font-weight: 900;
+  color: crimson;
+  margin-bottom: 15px;
+`;
+
 export const Login = () => {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm({
+    mode: "onChange",
+  });
+
+  const onSubmit = () => {};
+
+  console.log(isValid);
 
   return (
     <Wrap>
       <LoginWrap>
         <Title>LOGIN</Title>
-        <form action="" method="POST">
+        <form onSubmit={handleSubmit(onSubmit)}>
           <input
-            // {...register()}
+            {...register("username", {
+              required: "이메일 혹은 아이디를 입력해주세요.",
+              minLength: {
+                value: 3,
+                message: "아이디는 3자이상 작성해주세요.",
+              },
+            })}
+            // register: 이름적용, 유호성검사 가능 (required: true =>내용 필수 | required: "" =>에러시 보일 메세지)
             type="text"
-            placeholder="이메일 혹은 아이디를 입력해주세요."
+            placeholder="이메일 또는 아이디"
           />
-          <input type="password" />
-          <button>로그인</button>
+          <ErrorMessage>{errors?.username?.message}</ErrorMessage>
+
+          <input
+            {...register("password", {
+              required: "비밀번호를 입력해주세요.",
+              minLength: {
+                value: 8,
+                message: "비밀번호는 8자이상 작성해주세요.",
+              },
+              pattern: {
+                value: /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,}$/,
+                message: "비밀번호는 문자, 숫자 조합으로 작성해 주세요.",
+              },
+            })}
+            type="password"
+            placeholder="비밀번호"
+          />
+          <ErrorMessage>{errors?.password?.message}</ErrorMessage>
+
+          <Button
+            opacity={isValid ? 1 : 0.5}
+            cursor={isValid ? "pointer" : "auto"}
+          >
+            로그인
+          </Button>
         </form>
       </LoginWrap>
     </Wrap>
   );
 };
+
 // action: input 내용을 담아 특정 페이지로 보낼 때
+
+// *로그인 유효성 검사
+// -아이디가 틀렸습니다
+// -비번이 틀렸습니다
+// -없는 계정입니다
+// -특수문자
+// -이메일만 입력하세요
+// -비밀번호 변경
+// -잘못된 행동입니다
+// -아이디를 입력해주세요
+// -비밀번호를 입력해주세요
+// -비밀번호 n회 오류
+// -로그인되었습니다
+
+// *정규식 표현(regex)
+// 비밀번호 정규식 패턴 https://www.wrapuppro.com/programing/view/MIw5kPB3ao2YJVx
