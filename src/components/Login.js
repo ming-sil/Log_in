@@ -1,6 +1,11 @@
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 
+const userDb = {
+  dbUsername: "test",
+  dbPassword: "qwer1234",
+};
+
 const Wrap = styled.div`
   height: 100vh;
   display: flex;
@@ -49,6 +54,7 @@ const Button = styled.button`
   border-radius: 10px;
   opacity: ${(props) => props.opacity};
   cursor: ${(props) => props.cursor};
+  transition: 0.3s;
 `;
 
 const ErrorMessage = styled.span`
@@ -62,13 +68,31 @@ export const Login = () => {
     register,
     handleSubmit,
     formState: { errors, isValid },
+    getValues,
+    setError,
   } = useForm({
     mode: "onChange",
   });
 
-  const onSubmit = () => {};
+  const onSubmit = () => {
+    // console.log(getValues());
+    const { username, password } = getValues();
+    const { dbUsername, dbPassword } = userDb;
 
-  console.log(isValid);
+    if (username !== dbUsername) {
+      setError("usernameResult", { message: "아이디가 틀렸습니다" });
+    }
+
+    if (password !== dbPassword) {
+      setError("passwordResult", { message: "비밀번호가 틀렸습니다" });
+    }
+
+    if (username === dbUsername && password === dbPassword) {
+      alert("로그인 성공!");
+    }
+  };
+
+  console.log(errors);
 
   return (
     <Wrap>
@@ -87,7 +111,12 @@ export const Login = () => {
             type="text"
             placeholder="이메일 또는 아이디"
           />
-          <ErrorMessage>{errors?.username?.message}</ErrorMessage>
+          {errors?.username?.message && (
+            <ErrorMessage>{errors?.username?.message}</ErrorMessage>
+          )}
+          {errors?.usernameResult?.message && (
+            <ErrorMessage>{errors?.username?.message}</ErrorMessage>
+          )}
 
           <input
             {...register("password", {
@@ -104,8 +133,12 @@ export const Login = () => {
             type="password"
             placeholder="비밀번호"
           />
-          <ErrorMessage>{errors?.password?.message}</ErrorMessage>
-
+          {errors?.password?.message && (
+            <ErrorMessage>{errors?.password?.message}</ErrorMessage>
+          )}
+          {errors?.passwordResult?.message && (
+            <ErrorMessage>{errors?.password?.message}</ErrorMessage>
+          )}
           <Button
             opacity={isValid ? 1 : 0.5}
             cursor={isValid ? "pointer" : "auto"}
