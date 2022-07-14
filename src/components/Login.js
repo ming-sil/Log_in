@@ -115,7 +115,7 @@ export const Login = () => {
             <ErrorMessage>{errors?.username?.message}</ErrorMessage>
           )}
           {errors?.usernameResult?.message && (
-            <ErrorMessage>{errors?.username?.message}</ErrorMessage>
+            <ErrorMessage>{errors?.usernameResult?.message}</ErrorMessage>
           )}
 
           <input
@@ -137,7 +137,7 @@ export const Login = () => {
             <ErrorMessage>{errors?.password?.message}</ErrorMessage>
           )}
           {errors?.passwordResult?.message && (
-            <ErrorMessage>{errors?.password?.message}</ErrorMessage>
+            <ErrorMessage>{errors?.passwordResult?.message}</ErrorMessage>
           )}
           <Button
             opacity={isValid ? 1 : 0.5}
