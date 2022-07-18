@@ -170,3 +170,69 @@ export const Login = () => {
 
 // *정규식 표현(regex)
 // 비밀번호 정규식 패턴 https://www.wrapuppro.com/programing/view/MIw5kPB3ao2YJVx
+
+// // *react-hook-form
+
+// const {
+//   register,
+//   handleSubmit,
+//   formState:{errors,isValid},
+//   getValues,
+//   setError,
+// } = useForm({
+//   mode:"onChange"
+// })
+
+// 1. register
+// =>인풋태그에 유효성, name 등을 부여
+// <input
+// {...register("username", {
+//   required: "이메일 혹은 아이디를 입력해주세요.",
+// *******************=>Boolean값으로 처리할 수도 있고, 메세지도 전달할 수 있음***********************
+//   minLength: {
+//     value: 3,
+//     message: "아이디는 3자이상 작성해주세요.",
+//   },
+// *******************=>최소길이, value값으로 길이 정하며, message를 이용해 내용 작성 가능***********************
+//   pattern: {
+//     value: /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,}$/,
+//     message: "비밀번호는 문자, 숫자 조합으로 작성해 주세요.",
+//   },
+// *******************=>정규식 표현법으로 특수문자, 숫자, 대문자 등 특정 패턴을 넣을 수 있음***********************
+// })}
+// type="text"
+// placeholder="이메일 또는 아이디"
+// />
+
+// 2. handleSubmit
+// =>form태그에 SubmitEvent처리
+
+// 3. formState:{errors, isValid}
+// =>form태그 상태
+// =>errors: form태그 에러확인
+// =>isValid: form태그 유효성 검사(Boolean값으로 반환)
+
+// 4. getValues
+// =>인풋태그 value값을 가져옴(유저가 인풋에 입력한 값)
+// =>getValues() 로 함수 호출할 것
+
+// 5. setError
+// =>에러를 세팅할 수 있음
+// =>setError("에러명",{
+//   "message" : "메세지명"
+// })
+
+// 6. clearError
+// =>에러를 지울 수 있음
+// =>clearError("에러명")
+
+// 7. mode=>폼태그 모드를 이야기하며
+// onchange(실시간),
+// onblur(활성화시),
+// onfocus(클릭시),
+// ontouchcancel(터치시)
+
+// *useNavigate()
+// =>react-router-dom 에서 지원함
+// =>페이지 경로를 바꿀 수 있음
+// =>navigate("경로")
