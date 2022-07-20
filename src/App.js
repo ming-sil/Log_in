@@ -1,7 +1,7 @@
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import { Home } from "./components/Home";
 import { Login } from "./components/Login";
-import { GlobalStyled } from "./stlye/GlobalStyled";
+import { GlobalStyled } from "./style/GlobalStyled";
 
 function App() {
   return (
